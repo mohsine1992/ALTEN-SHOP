@@ -1,0 +1,48 @@
+<div class="contact-container" style="padding: 20px;">
+    <h2 style="text-align: center;">Contactez-nous</h2>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="p-fluid">
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input 
+          type="text" 
+          pInputText 
+          formControlName="email" 
+          required 
+          placeholder="Entrez votre email" 
+          class="p-inputtext-lg" 
+        />
+        <div *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+          <small class="error-message p-error">L'email est obligatoire et doit être valide.</small>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea 
+          id="float-input" 
+          rows="5" 
+          pInputTextarea 
+          formControlName="message" 
+          required 
+          placeholder="Entrez votre message"
+          class="p-inputtextarea-lg">
+        </textarea>
+        <div *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+          <small class="error-message p-error">Le message est obligatoire et doit comporter moins de 300 caractères.</small>
+        </div>
+      </div>
+  
+      <div class="p-d-flex p-jc-center" style="margin-top: 20px;">
+        <p-button label="Envoyer" type="submit" [disabled]="contactForm.invalid" icon="pi pi-paper-plane"></p-button>
+      </div>
+    </form>
+  
+    <!-- afficher un message à l'utilisateur -->
+    <p-dialog header="Succès" [(visible)]="displaySuccessDialog" [modal]="true" [responsive]="true">
+      <p>{{ successMessage }}</p>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="displaySuccessDialog = false" label="OK"></button>
+      </p-footer>
+    </p-dialog>
+  </div>
+  

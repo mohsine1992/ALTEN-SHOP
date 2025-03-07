@@ -1,0 +1,31 @@
+<div class="p-toolbar-group-end">
+    <i class="pi pi-shopping-cart" 
+       pBadge 
+       style="font-size: 2rem; cursor: pointer;" 
+       [value]="getTotalItemCount()" 
+       (click)="cartOverlay.toggle($event)">
+    </i>
+</div>
+<p-overlayPanel #cartOverlay>
+    <div *ngIf="getProducts().length > 0; else emptyCart">
+        <h3>Your Cart</h3>
+        <ul>
+            <li *ngFor="let item of getProducts()">
+                <span>{{ item.name }}</span> -  
+                <span>{{ item.price | currency }}</span>
+                <span> X {{ item.quantity }}</span>
+                <button (click)="removeFromCart(item.id)" 
+                    class="p-button p-button-danger p-button-sm"
+                    style="margin-left: 10px;">
+                    supprimer
+                </button>
+            </li>
+        </ul>
+        <div class="cart-total">
+            <strong>Total: {{ getTotal() | currency }}</strong>
+        </div>
+    </div>
+    <ng-template #emptyCart>
+        <p>Panier vide !</p>
+    </ng-template>
+</p-overlayPanel>
